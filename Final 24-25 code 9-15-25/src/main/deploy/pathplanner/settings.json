@@ -1,0 +1,37 @@
+{
+  "robotWidth": 0.83,
+  "robotLength": 0.965,
+  "holonomicMode": true,
+  "pathFolders": [
+    "Calibration",
+    "Teleop align"
+  ],
+  "autoFolders": [
+    "Calibration_Auto"
+  ],
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
+  "defaultMaxAngVel": 540.0,
+  "defaultMaxAngAccel": 720.0,
+  "defaultNominalVoltage": 12.0,
+  "robotMass": 59.59,
+  "robotMOI": 6.883,
+  "robotTrackwidth": 0.546,
+  "driveWheelRadius": 0.05,
+  "driveGearing": 5.143,
+  "maxDriveSpeed": 5.45,
+  "driveMotorType": "vortex",
+  "driveCurrentLimit": 60.0,
+  "wheelCOF": 1.2,
+  "flModuleX": 0.295,
+  "flModuleY": 0.247,
+  "frModuleX": 0.295,
+  "frModuleY": -0.247,
+  "blModuleX": -0.295,
+  "blModuleY": 0.247,
+  "brModuleX": -0.295,
+  "brModuleY": -0.247,
+  "bumperOffsetX": 0.0,
+  "bumperOffsetY": 0.0,
+  "robotFeatures": []
+}

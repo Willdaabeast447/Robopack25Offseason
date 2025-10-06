@@ -1,0 +1,74 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "elcal"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Default position"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WristSafety"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Forward_ToLine"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": " Forward_ToReef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot_"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": " L4_Back"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "A1"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "elcal"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L1_Left"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot_"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L1_LeftBack_Load"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LoadLevel"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

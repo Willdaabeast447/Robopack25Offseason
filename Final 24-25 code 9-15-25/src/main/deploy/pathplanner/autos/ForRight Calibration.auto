@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "aVCal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Forward Calibration"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Calibration"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Calibration_Auto",
+  "choreoAuto": false
+}

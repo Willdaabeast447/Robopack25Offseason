@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "autostart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L1_position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L1_Left"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "L1_shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L1_LeftBack_Lolly"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
