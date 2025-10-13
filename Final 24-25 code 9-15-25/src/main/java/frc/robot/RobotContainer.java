@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.MergeVisionOdometryCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Climber;
@@ -39,6 +38,16 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
+  public static class OperatorConstants
+  {
+     // Joystick Deadband
+    public static final double DEADBAND        = 0.2;
+    public static final double LEFT_Y_DEADBAND = 0.15;
+    public static final double RIGHT_X_DEADBAND = 0.15;
+    public static final double TURN_CONSTANT    = 6;
+  }
+
+
 private final SendableChooser<Command> autoChooser;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 final  CommandXboxController joystick = new CommandXboxController(0);

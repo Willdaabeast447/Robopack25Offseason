@@ -14,7 +14,11 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.filter.MedianFilter;
+import edu.wpi.first.networktables.BooleanPublisher;
+import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -103,16 +107,11 @@ public class Elevatorsp extends SubsystemBase {
   // Setup Shuffleboard (WPILib's dashboard) for real-time monitoring of the
   // elevator state during the match.
 
-  private ShuffleboardTab DS_ElevatorTab = Shuffleboard.getTab("Elevator");
-  private GenericEntry DS_ElevatorPosition = DS_ElevatorTab.add("ElevatorValue", 0).getEntry(); // Entry for elevator
-  // position
-
-  private GenericEntry DS_canLift = DS_ElevatorTab.add("CanLift",
-      true).getEntry(); // Entry for canLift
-
-  private GenericEntry DS_ElevatorSetpoint = DS_ElevatorTab.add("Setpoint",
-      elevatorController.getSetpoint())
-      .getEntry();
+  private NetworkTable ElevatorTable = NetworkTableInstance.getDefault().getTable("Elevator");
+  private final DoublePublisher ElevatorPosition_INDICATOR;
+  private final BooleanPublisher CanLift_INDICATOR;
+  private final DoublePublisher ElevatorSetpoint_INDICATOR;
+  private final BooleanPublisher LimitSwitch_INDICATOR;
 
   // Default max elevator speed as defined by Shuffleboard.
   // double maxElevatorSpeed = this.DS_ElevatorSpeed.getDouble(0.2);
@@ -125,6 +124,13 @@ public class Elevatorsp extends SubsystemBase {
     // Set initial PID controller setpoint to current elevator position.
     elevatorController.setSetpoint(getPosition());
     elevatorController.setTolerance(Constants.ELEVATOR_ERROR_TOLERANCE); // Set tolerance to 1 (tolerance defines when the PID controller considers
+    
+    ElevatorPosition_INDICATOR = ElevatorTable.getDoubleTopic("ElevatorPosition").publish();
+    CanLift_INDICATOR = ElevatorTable.getBooleanTopic("CanLift").publish();
+    ElevatorSetpoint_INDICATOR = ElevatorTable.getDoubleTopic("Setpoint").publish();
+    LimitSwitch_INDICATOR = ElevatorTable.getBooleanTopic("LimitSwitch").publish();
+
+    
     // the
     // target reached)
     // elevatorTalonStrb.setPosition(0); // Possible initial position setting for
@@ -150,6 +156,18 @@ public class Elevatorsp extends SubsystemBase {
     elevatorTalonPort.configure(elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     elevatorTalonStrb.configure(elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
+
+
+
+
+
+
+
+
+
+
+
+
   // Method to check if the elevator has reached its setpoint.
   public boolean elevatorAtSetpoint() {
     return this.elevatorController.atSetpoint(); // Returns true if the elevator is at its setpoint.
@@ -490,21 +508,26 @@ public class Elevatorsp extends SubsystemBase {
     // this.maxElevatorSpeed = this.DS_ElevatorSpeed.getDouble(0.2);
 
     // Update the current position of the elevator.
-    this.DS_ElevatorPosition.setDouble(getPosition());
+
+    netTableUpdate();
+
     if ((!limitSwitch.get()) && (this.getPosition() != 0)) {
       this.zeroElevator();
-      SmartDashboard.getNumber("elevatorTalonPort speed",elevatorTalonPort.get());
-      SmartDashboard.getNumber("elevatorTalonStrb speed",elevatorTalonStrb.get());
+      /* SmartDashboard.getNumber("elevatorTalonPort speed",elevatorTalonPort.get());
+      SmartDashboard.getNumber("elevatorTalonStrb speed",elevatorTalonStrb.get()); */
     }
 
     // Update the current status of the forward and reverse limit switches.
 
-    this.DS_ElevatorSetpoint.setDouble(elevatorController.getSetpoint());
-    this.DS_canLift.setBoolean(this.canLift);
     SmartDashboard.putData(this);
-    SmartDashboard.putBoolean("elevator limit", limitSwitch.get());
     
     // The periodic method is called to regularly update the robot's status.
   }
-
+  private void netTableUpdate()
+  {
+    ElevatorPosition_INDICATOR.set(getPosition());
+    CanLift_INDICATOR.set(this.canLift);
+    ElevatorSetpoint_INDICATOR.set(elevatorController.getSetpoint());
+    LimitSwitch_INDICATOR.set(limitSwitch.get());
+  }
 }
